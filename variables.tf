@@ -3,6 +3,11 @@ variable "name" {
   description = "The friendly name to assign to the policy."
 }
 
+variable "target_id" {
+  type        = "string"
+  description = "The unique identifier (ID) of the root, organizational unit, or account number that you want to attach the policy to."
+}
+
 variable "description" {
   default     = "Managed by Terraform"
   type        = "string"

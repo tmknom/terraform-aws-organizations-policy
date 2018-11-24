@@ -17,3 +17,8 @@ data "aws_iam_policy_document" "default" {
     actions   = ["${var.deny_actions}"]
   }
 }
+
+resource "aws_organizations_policy_attachment" "default" {
+  policy_id = "${aws_organizations_policy.default.id}"
+  target_id = "${var.target_id}"
+}
