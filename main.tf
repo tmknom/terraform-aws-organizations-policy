@@ -4,7 +4,7 @@
 
 # https://www.terraform.io/docs/providers/aws/r/organizations_policy.html
 resource "aws_organizations_policy" "default" {
-  count = "${length(var.deny_actions) > 0 ? 1 : 0}"
+  count = "${length(var.deny_actions) > 0 && var.enabled == "true" ? 1 : 0}"
 
   name        = "${var.name}"
   description = "${var.description}"
@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "default" {
 }
 
 resource "aws_organizations_policy_attachment" "default" {
-  count = "${length(var.deny_actions) > 0 ? 1 : 0}"
+  count = "${length(var.deny_actions) > 0 && var.enabled == "true" ? 1 : 0}"
 
   policy_id = "${aws_organizations_policy.default.id}"
   target_id = "${var.target_id}"
