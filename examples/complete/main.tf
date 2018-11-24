@@ -9,6 +9,7 @@ module "organizations_policy" {
 
   description = "Example policy"
   type        = "SERVICE_CONTROL_POLICY"
+  enabled     = "true"
 }
 
 locals {

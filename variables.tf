@@ -25,3 +25,9 @@ variable "deny_actions" {
   type        = "list"
   description = "List of strings that identify AWS services and actions that are denied by the statement."
 }
+
+variable "enabled" {
+  default     = "true"
+  type        = "string"
+  description = "Set to false to prevent the module from creating anything."
+}
