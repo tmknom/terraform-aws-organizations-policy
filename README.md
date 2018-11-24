@@ -22,11 +22,21 @@ cd terraform-aws-sample && make install
 
 ## Inputs
 
-Write your Terraform module inputs.
+| Name         | Description                                                                                                           |  Type  |         Default          | Required |
+| ------------ | --------------------------------------------------------------------------------------------------------------------- | :----: | :----------------------: | :------: |
+| deny_actions | List of strings that identify AWS services and actions that are denied by the statement.                              |  list  |            -             |   yes    |
+| name         | The friendly name to assign to the policy.                                                                            | string |            -             |   yes    |
+| target_id    | The unique identifier (ID) of the root, organizational unit, or account number that you want to attach the policy to. | string |            -             |   yes    |
+| description  | A description to assign to the policy.                                                                                | string |  `Managed by Terraform`  |    no    |
+| enabled      | Set to false to prevent the module from creating anything.                                                            | string |          `true`          |    no    |
+| type         | The type of policy to create. Currently, the only valid value is SERVICE_CONTROL_POLICY (SCP).                        | string | `SERVICE_CONTROL_POLICY` |    no    |
 
 ## Outputs
 
-Write your Terraform module outputs.
+| Name                     | Description                               |
+| ------------------------ | ----------------------------------------- |
+| organizations_policy_arn | Amazon Resource Name (ARN) of the policy. |
+| organizations_policy_id  | The unique identifier (ID) of the policy. |
 
 ## Development
 
