@@ -1,8 +1,7 @@
 module "organizations_policy" {
-  source    = "../../"
-  name      = "example"
-  target_id = "${local.target_id}"
-
+  source       = "../../"
+  name         = "example"
+  target_id    = "${local.target_id}"
   deny_actions = ["cloudtrail:StopLogging"]
 }
 
