@@ -21,7 +21,6 @@ variable "type" {
 }
 
 variable "deny_actions" {
-  default     = []
   type        = "list"
   description = "List of strings that identify AWS services and actions that are denied by the statement."
 }
