@@ -8,11 +8,30 @@ Terraform module template following [Standard Module Structure](https://www.terr
 
 ## Usage
 
-Named `terraform-<PROVIDER>-<NAME>`. Module repositories must use this three-part name format.
+### Minimal
 
-```sh
-curl -fsSL https://raw.githubusercontent.com/tmknom/terraform-aws-organizations-policy/master/install | sh -s terraform-aws-sample
-cd terraform-aws-sample && make install
+```hcl
+module "organizations_policy" {
+  source       = "git::https://github.com/tmknom/terraform-aws-organizations-policy.git?ref=tags/1.0.0"
+  name         = "example"
+  target_id    = "ou-12345678"
+  deny_actions = ["cloudtrail:StopLogging"]
+}
+```
+
+### Complete
+
+```hcl
+module "organizations_policy" {
+  source       = "git::https://github.com/tmknom/terraform-aws-organizations-policy.git?ref=tags/1.0.0"
+  name         = "example"
+  target_id    = "ou-12345678"
+  deny_actions = ["cloudtrail:StopLogging"]
+
+  description = "Example policy"
+  type        = "SERVICE_CONTROL_POLICY"
+  enabled     = "true"
+}
 ```
 
 ## Examples
