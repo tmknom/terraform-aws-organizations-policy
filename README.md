@@ -4,15 +4,42 @@
 [![GitHub tag](https://img.shields.io/github/tag/tmknom/terraform-aws-organizations-policy.svg)](https://registry.terraform.io/modules/tmknom/organizations-policy/aws)
 [![License](https://img.shields.io/github/license/tmknom/terraform-aws-organizations-policy.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Terraform module template following [Standard Module Structure](https://www.terraform.io/docs/modules/create.html#standard-module-structure).
+Terraform module which creates AWS Organizations Policy resources on AWS.
+
+## Description
+
+Provision [Organizations Policy](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies.html).
+
+This module provides recommended settings:
+
+- [Blacklist Strategy](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_about-scps.html#orgs_policies_blacklist)
 
 ## Usage
 
-Named `terraform-<PROVIDER>-<NAME>`. Module repositories must use this three-part name format.
+### Minimal
 
-```sh
-curl -fsSL https://raw.githubusercontent.com/tmknom/terraform-aws-organizations-policy/master/install | sh -s terraform-aws-sample
-cd terraform-aws-sample && make install
+```hcl
+module "organizations_policy" {
+  source       = "git::https://github.com/tmknom/terraform-aws-organizations-policy.git?ref=tags/1.0.0"
+  name         = "example"
+  target_id    = "ou-12345678"
+  deny_actions = ["cloudtrail:StopLogging"]
+}
+```
+
+### Complete
+
+```hcl
+module "organizations_policy" {
+  source       = "git::https://github.com/tmknom/terraform-aws-organizations-policy.git?ref=tags/1.0.0"
+  name         = "example"
+  target_id    = "ou-12345678"
+  deny_actions = ["cloudtrail:StopLogging"]
+
+  description = "Example policy"
+  type        = "SERVICE_CONTROL_POLICY"
+  enabled     = "true"
+}
 ```
 
 ## Examples
@@ -22,11 +49,21 @@ cd terraform-aws-sample && make install
 
 ## Inputs
 
-Write your Terraform module inputs.
+| Name         | Description                                                                                                           |  Type  |         Default          | Required |
+| ------------ | --------------------------------------------------------------------------------------------------------------------- | :----: | :----------------------: | :------: |
+| deny_actions | List of strings that identify AWS services and actions that are denied by the statement.                              |  list  |            -             |   yes    |
+| name         | The friendly name to assign to the policy.                                                                            | string |            -             |   yes    |
+| target_id    | The unique identifier (ID) of the root, organizational unit, or account number that you want to attach the policy to. | string |            -             |   yes    |
+| description  | A description to assign to the policy.                                                                                | string |  `Managed by Terraform`  |    no    |
+| enabled      | Set to false to prevent the module from creating anything.                                                            | string |          `true`          |    no    |
+| type         | The type of policy to create. Currently, the only valid value is SERVICE_CONTROL_POLICY (SCP).                        | string | `SERVICE_CONTROL_POLICY` |    no    |
 
 ## Outputs
 
-Write your Terraform module outputs.
+| Name                     | Description                               |
+| ------------------------ | ----------------------------------------- |
+| organizations_policy_arn | Amazon Resource Name (ARN) of the policy. |
+| organizations_policy_id  | The unique identifier (ID) of the policy. |
 
 ## Development
 
@@ -35,6 +72,14 @@ Write your Terraform module outputs.
 - [Docker](https://www.docker.com/)
 
 ### Configure environment variables
+
+#### Terraform variables for examples
+
+```shell
+export TF_VAR_target_id=ou-11111111
+```
+
+#### AWS credentials
 
 ```shell
 export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
