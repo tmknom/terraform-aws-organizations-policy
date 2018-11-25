@@ -6,6 +6,14 @@
 
 Terraform module template following [Standard Module Structure](https://www.terraform.io/docs/modules/create.html#standard-module-structure).
 
+## Description
+
+Provision [Organizations Policy](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies.html).
+
+This module provides recommended settings:
+
+- [Blacklist Strategy](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_about-scps.html#orgs_policies_blacklist)
+
 ## Usage
 
 ### Minimal
