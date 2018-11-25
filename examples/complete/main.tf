@@ -1,11 +1,8 @@
 module "organizations_policy" {
-  source    = "../../"
-  name      = "example"
-  target_id = "${local.target_id}"
-
-  deny_actions = [
-    "cloudtrail:StopLogging",
-  ]
+  source       = "../../"
+  name         = "example"
+  target_id    = "${local.target_id}"
+  deny_actions = ["cloudtrail:StopLogging"]
 
   description = "Example policy"
   type        = "SERVICE_CONTROL_POLICY"
