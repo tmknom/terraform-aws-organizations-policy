@@ -8,6 +8,11 @@ variable "target_id" {
   description = "The unique identifier (ID) of the root, organizational unit, or account number that you want to attach the policy to."
 }
 
+variable "deny_actions" {
+  type        = "list"
+  description = "List of strings that identify AWS services and actions that are denied by the statement."
+}
+
 variable "description" {
   default     = "Managed by Terraform"
   type        = "string"
@@ -18,11 +23,6 @@ variable "type" {
   default     = "SERVICE_CONTROL_POLICY"
   type        = "string"
   description = "The type of policy to create. Currently, the only valid value is SERVICE_CONTROL_POLICY (SCP)."
-}
-
-variable "deny_actions" {
-  type        = "list"
-  description = "List of strings that identify AWS services and actions that are denied by the statement."
 }
 
 variable "enabled" {
